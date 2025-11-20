@@ -69,7 +69,7 @@ export function SignIn() {
         <div className="absolute left-2 top-4 lg:top-10">
           <ModeToggle />
         </div>
-        <div className="flex items-center gap-4 p-4 text-accent lg:p-0">
+        <div className="flex items-center gap-4 p-4 lg:p-0">
           <CalendarCogIcon className="h-10 w-10 lg:h-16 lg:w-16" />
           <div className="space-y-0 lg:space-y-1">
             <p className="text-lg font-bold lg:text-2xl">Shiftly</p>
@@ -80,7 +80,7 @@ export function SignIn() {
       <div className="relative flex h-full flex-1 justify-center pt-20 lg:items-center lg:pt-0">
         <Link to="/sign-up">
           <Button
-            variant="outline"
+            variant="default"
             className="absolute right-[35%] top-4 lg:right-10 lg:top-10"
             size="lg"
           >
