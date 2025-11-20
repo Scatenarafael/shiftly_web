@@ -2,13 +2,13 @@ import { api } from '@/lib/axios';
 
 interface SignInProps {
   data: {
-    username: string;
+    email: string;
     password: string;
   };
 }
 
 export async function signIn({ data }: SignInProps) {
-  const response = await api.post('jwt/create/', data);
+  const response = await api.post('auth/login', data);
 
   return response;
 }

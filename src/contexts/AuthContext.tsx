@@ -5,7 +5,6 @@ import {
   useMutation,
   useQuery,
 } from '@tanstack/react-query';
-// eslint-disable-next-line
 import {
   createContext,
   type Dispatch,
@@ -54,6 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     queryKey: ['profile'],
     queryFn: async () => {
       return getProfile().then((response) => {
+        console.log("profile >> response >>> ", response)
         if (response) {
           setProfile(response);
         }
@@ -64,9 +64,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const { mutateAsync: signOutFn } = useMutation({
     mutationFn: async () => {
-      signOut().then(() => {
-        setProfile(null);
-      });
+      await signOut()
+      
+      setProfile(null);
     },
     onSuccess: () => {
       window.location.replace('/sign-in');

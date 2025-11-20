@@ -26,15 +26,14 @@ export function AppLayout() {
       },
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       async (error: AxiosError<any>) => {
+        console.log("error >>> ", error)
         if (
-          error.response?.status === 401 &&
-          error.response.data.detail ===
-            'Authentication credentials were not provided.'
+          !error.response
         ) {
           if (!refreshing) {
             refreshing = true;
             api
-              .post('/jwt/refresh/')
+              .post('/auth/refresh')
               .then((response) => {
                 if (isAxiosError(response)) {
                   refreshing = false;
@@ -75,7 +74,7 @@ export function AppLayout() {
   }, [path.pathname]);
 
   return (
-    <div className="flex min-h-screen flex-1 antialiased">
+    <div className="flex min-h-screen bg-background flex-1 antialiased">
       <NavMenu />
       <div className="flex flex-1 flex-col">
         <Header />

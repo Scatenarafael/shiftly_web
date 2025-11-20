@@ -1,17 +1,7 @@
-import type { createUserFormData } from '@/app/pages/app/users/create-user-dialog-form';
 import { api } from '@/lib/axios';
-import { isAxiosError } from 'axios';
+import type { createUserFormData } from '../pages/auth/register';
 
 export async function registerUser(data: createUserFormData) {
-  try {
-    const response = await api.post('/register/', { ...data });
-
-    if (isAxiosError(response)) {
-      throw response;
-    }
-    return response.data;
-  } catch (e) {
-    // biome-ignore lint/complexity/noUselessCatch: <explanation>
-    throw e;
-  }
+  const response = await api.post('users/register/', { ...data });
+  return response.data;
 }

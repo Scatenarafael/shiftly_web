@@ -4,12 +4,12 @@ import { ModeToggle } from '@/components/toggle-theme';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { capitalizeString, phoneMask } from '@/lib/constants';
+import { capitalizeString } from '@/lib/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
-import { Dam, Loader2 } from 'lucide-react';
-import { Controller, useForm } from 'react-hook-form';
+import { CalendarCogIcon, Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
@@ -17,13 +17,12 @@ import * as zod from 'zod';
 
 const CreateUserSchema = zod
   .object({
-    username: zod.string().min(1, 'Type username.'),
-    email: zod.string().min(1, 'Type e-mail.').email(),
-    phone: zod.string(),
+    first_name: zod.string().min(1, 'Type username.'),
+    last_name: zod.string().min(1, 'Type username.'),
+    email: zod.email(),
     password: zod.string(),
     re_password: zod.string(),
-    role: zod.number().nullish(),
-    notes: zod.string(),
+    active: zod.boolean()
   })
   .superRefine((val, ctx) => {
     if (val.password !== val.re_password) {
@@ -49,17 +48,16 @@ export function Register() {
     formState: { errors },
     register,
     handleSubmit,
-    control,
     reset,
   } = useForm<createUserFormData>({
     resolver: zodResolver(CreateUserSchema),
     values: {
       email: '',
-      username: '',
-      phone: '',
       password: '',
       re_password: '',
-      notes: '',
+      first_name: '',
+      last_name: '',
+      active: true
     },
   });
 
@@ -95,15 +93,15 @@ export function Register() {
 
   return (
     <div className="flex h-full flex-1 flex-col lg:flex-row">
-      <div className="relative flex w-full items-center justify-center bg-gradient-to-r from-foreground to-primary/70 dark:from-primary/70 dark:to-foreground lg:w-1/2">
+      <div className="relative flex w-full items-center justify-center bg-linear-to-r from-foreground to-primary/70 dark:from-primary/70 dark:to-foreground lg:w-1/3">
         <div className="absolute left-2 top-4 lg:top-10">
           <ModeToggle />
         </div>
         <div className="flex items-center gap-4 p-4 text-accent lg:p-0">
-          <Dam className="h-10 w-10 lg:h-16 lg:w-16" />
+          <CalendarCogIcon className="h-10 w-10 lg:h-16 lg:w-16" />
           <div className="space-y-0 lg:space-y-1">
-            <p className="text-lg font-bold lg:text-3xl">PhotonDam</p>
-            <p className="text-xs">Monitoring is our job!</p>
+            <p className="text-lg font-bold lg:text-2xl">Shiftly</p>
+            <p className="text-xs">Nosso objetivo é facilitar a sua vida!</p>
           </div>
         </div>
       </div>
@@ -119,39 +117,17 @@ export function Register() {
         </Link>
         <form
           onSubmit={handleSubmit(handleCreateUser)}
-          className="grid grid-cols-2 h-full max-h-[25rem] w-5/6 gap-4 rounded-lg border-2 p-8"
+          className="grid grid-cols-2 h-full max-h-100 w-5/6 gap-4 rounded-2xl border-2 p-8"
         >
           <div className="space-y-1">
-            <Label htmlFor="register-username">Username</Label>
-            <Input id="register-username" {...register('username')} />
-            <FormErrorMessage className="text-xs" error={errors.username} />
+            <Label htmlFor="register-username">First name</Label>
+            <Input id="register-username" {...register('first_name')} />
+            <FormErrorMessage className="text-xs" error={errors.first_name} />
           </div>
-          <div className="space-y-1 w-full">
-            <Controller
-              control={control}
-              name="phone"
-              render={({ field: { onChange, value } }) => {
-                return (
-                  <div className="w-full space-y-1">
-                    <Label htmlFor="create-user-phone" className="text-sm">
-                      Phone
-                    </Label>
-                    <Input
-                      id="create-user-phone"
-                      className="text-sm"
-                      value={value}
-                      onChange={(e) => {
-                        onChange(phoneMask(e.target.value));
-                      }}
-                    />
-                    <FormErrorMessage
-                      className="text-xs"
-                      error={errors.phone}
-                    />
-                  </div>
-                );
-              }}
-            />
+          <div className="space-y-1">
+            <Label htmlFor="register-username">Last name</Label>
+            <Input id="register-username" {...register('last_name')} />
+            <FormErrorMessage className="text-xs" error={errors.last_name} />
           </div>
           <div className="space-y-1 col-span-2">
             <Label htmlFor="register-email">Email</Label>

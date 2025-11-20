@@ -17,12 +17,10 @@ export type Paginated<T> = {
 
 export type ProfileResponseProps = {
   id: string;
-  username: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phone: string | null;
-  role: 0 | 1 | 2 | 3;
   created_at: string;
-  updated_at: string;
 };
 
 export type ParentDetailsProps = {
