@@ -1,7 +1,7 @@
 import {
   Binoculars,
   BookOpenText,
-  Dam,
+  CalendarCogIcon,
   Settings,
   SquareActivity,
 } from 'lucide-react';
@@ -31,25 +31,25 @@ export function NavMenu() {
       onMouseLeave={() => {
         setShowNavMenu(false);
       }}
-      className="flex min-h-full flex-1 max-w-12 data-[state-open=true]:max-w-48 flex-col bg-gradient-to-b from-foreground to-primary/70 dark:from-primary/70 transition-all ease-in-out duration-500"
+      className="flex min-h-full flex-1 max-w-12 data-[state-open=true]:max-w-40 flex-col bg-primary-foreground transition-all ease-in-out duration-500"
     >
       {!showNavMenu && (
-        <div className="flex absolute top-2 left-[-5px] bg-gradient-to-r from-foreground to-primary/90 dark:from-primary-foreground dark:to-primary p-3 justify-center items-center rounded-full">
-          <Dam className="h-9 w-9 text-primary dark:text-foreground" />
+        <div className="flex absolute top-2 bg-primary-foreground p-2 justify-center items-center rounded-full">
+          <CalendarCogIcon className="h-7 w-7 text-accent-foreground dark:text-accent-foreground" />
         </div>
       )}
 
       {showNavMenu && (
         <Link to="/">
-          <div className="flex h-20 items-center gap-2 px-4 text-accent">
-            <Dam className="h-10 w-10 text-primary dark:text-foreground" />
+          <div className="flex h-20 items-center gap-2 px-4">
+            <CalendarCogIcon className="h-10 w-10 text-accent-foreground dark:text-accent-foreground" />
             <p className="text-lg font-bold text-primary dark:text-foreground lg:text-lg">
-              PhotonDam
+              Shiftly
             </p>
           </div>
         </Link>
       )}
-      <div className="flex-1 space-y-10 bg-transparent px-2 py-10 text-white">
+      <div className="flex-1 space-y-10 bg-transparent text-accent-foreground dark:text-accent-foreground px-2 py-10">
         {!showNavMenu ? (
           <Button variant="ghost" className="p-0 mt-20 w-6 h-6">
             <BookOpenText className="w-5 h-5" />

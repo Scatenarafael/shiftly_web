@@ -65,13 +65,13 @@ export function SignIn() {
 
   return (
     <div className="flex h-full flex-1 flex-col lg:flex-row">
-      <div className="relative flex w-full items-center justify-center bg-linear-to-r from-foreground to-primary/70 dark:from-primary/70 dark:to-foreground lg:w-1/3">
+      <div className="relative flex w-full items-center justify-center bg-radial-[at_20%_75%] from-primary via-primary/80 to-primary/30 dark:from-primary dark:via-primary/90 dark:to-accent lg:w-1/3">
         <div className="absolute left-2 top-4 lg:top-10">
           <ModeToggle />
         </div>
         <div className="flex items-center gap-4 p-4 lg:p-0">
-          <CalendarCogIcon className="h-10 w-10 lg:h-16 lg:w-16" />
-          <div className="space-y-0 lg:space-y-1">
+          <CalendarCogIcon className="h-10 w-10 text-accent lg:h-16 lg:w-16" />
+          <div className="space-y-0 text-accent lg:space-y-1">
             <p className="text-lg font-bold lg:text-2xl">Shiftly</p>
             <p className="text-xs">Nosso objetivo é facilitar a sua vida!</p>
           </div>
